@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo" style="margin-left: 2%;">Tech Blog</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a id="signOut" href="register.html">Register</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div id='userLogin' class="container">
+    <h1>Login Page</h1>
+    <form>
+      <p>
+        <label for="username">username</label>
+        <input type="text" name="username" id="username">
+      </p>
+      <p>
+        <label for="password">password</label>
+        <input type="password" name="password" id="password">
+      </p>
+      <p>
+        <button id="login" class="fb btn">Login</button>
+        <button id="login" class="fb btn">New User Register</button>
+      </p>
+    </form>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+
+    document.getElementById('login').addEventListener('click', event => {
+      event.preventDefault()
+      axios.post('/api/users/login', {
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value
+      })
+        .then(({ data: token }) => {
+          if (token) {
+            localStorage.setItem('token', token)
+            window.location = '/'
+          } else {
+            alert('Invalid username or password')
+          }
+        })
+        .catch(err => console.error(err))
+    })
+
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>

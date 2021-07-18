@@ -1,0 +1,10 @@
+.col {
+  margin-left: 6%;
+  max-width: 88%;
+}
+
+#userLogin, #registerUser {
+max-width: 40%;
+margin-left: 33%;
+}
+

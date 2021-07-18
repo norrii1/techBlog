@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo" style="margin-left: 2%;">Tech Blog</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a id="signOut" href="login.html">LogOut</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="col s12 m7 lg7">
+    <h2 >Post a Blog</h2>
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src="https://static.thenounproject.com/png/1808983-200.png">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+            <p>
+              <label for="title">Title</label>
+            </p>
+           <p>   
+              <input type="title" name="title" id="title">
+            </p>
+            <p>
+              <label for="description" >Content</label>
+            </p>
+            <p>
+              <input type="description" style="line-height: 40px;" name="description" id="description">
+            </p>
+        </div>
+        <div class="card-action">
+          <a id="addItem" href="#">Post </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ul id="posts"></ul>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+
+    document.getElementById('signOut').addEventListener('click', event => {
+      localStorage.removeItem('token')
+      window.location = '/login.html'
+    })
+
+    document.getElementById('addItem').addEventListener('click', event => {
+      event.preventDefault()
+      axios.post('/api/posts', {
+        title: document.getElementById('title').value,
+        description: document.getElementById('description').value
+      }, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+        .then(({ data: post }) => {
+          const postElem = document.createElement('li')
+          document.getElementById('posts').append(postElem)
+        })
+        .catch(err => window.location = '/login.html')
+    })
+
+    // axios.get('/api/posts', {
+    //   headers: {
+    //     'Authorization': `Bearer ${localStorage.getItem('token')}`
+    //   }
+    // })
+    //   .then(({ data: posts }) => {
+    //     posts.forEach(post => {
+    //       const postElem = document.createElement('li')
+    //       postElem.innerHTML = `
+    //       <p>Text: ${post.title}</p>
+    //       <p>Text: ${post.description}</p> 
+    //       `
+    //       document.getElementById('posts').append(postElem)
+    //     })
+    //   })
+    //   .catch(err => window.location = '/login.html')
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</body>
+
+</html>

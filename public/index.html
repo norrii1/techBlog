@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo" style="margin-left: 2%;">Tech Blog</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a id="signOut" href="login.html">LogOut</a></li>
+      </ul>
+    </div>
+  </nav>
+  <ui id="posts"></ui>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const renderPosts = () => {
+      axios.get('/api/posts', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+        .then(({ data: posts }) => {
+          posts.forEach(post => {
+            const postElem = document.createElement('div')
+            postElem.innerHTML = `
+            <div class="row" style='margin-left: 33%'>
+              <div class="col s12 m6">
+                <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                  <span class="card-title"> ${post.title}</span>
+                  <hr />
+                   <div class='row'></div>
+                    <p>${post.description}</p>
+                    </div>
+                     <div class="card-action">
+                       <a href="#">Comment</a>
+                       <a href="#">This is a link</a>
+                    </div>
+                 </div>
+               </div>
+           </div>
+          `
+
+            document.getElementById('posts').append(postElem)
+          })
+        })
+        .catch(err => window.location = '/index.html')
+    }
+    renderPosts()
+  </script>
+</body>
+
+</html>

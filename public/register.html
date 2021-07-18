@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo" style="margin-left: 2%;">Tech Blog</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="sass.html">Home</a></li>
+        <li><a href="badges.html">Dashboard</a></li>
+        <li><a id="signOut" href="login.html">LogOut</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div id='registerUser' class="conatiner">
+    <h1>Register Page</h1>
+    <form>
+      <p>
+        <label for="name">name</label>
+        <input type="text" name="name" id="name">
+      </p>
+      <p>
+        <label for="email">email</label>
+        <input type="email" name="email" id="email">
+      </p>
+      <p>
+        <label for="username">username</label>
+        <input type="text" name="username" id="username">
+      </p>
+      <p>
+        <label for="password">password</label>
+        <input type="password" name="password" id="password">
+      </p>
+      <p>
+        <button id="register" class="fb btn">Register User</button>
+      </p>
+    </form>
+  </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <script>
+
+      document.getElementById('register').addEventListener('click', event => {
+      event.preventDefault()
+      axios.post('/api/users/register', {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value
+      })
+        .then(() => {
+          event.preventDefault()
+          window.location = '/login.html'
+        })
+        .catch(err => console.error(err))
+    })
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
