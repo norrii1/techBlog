@@ -40,9 +40,8 @@
             <p>
               <label for="description" >Content</label>
             </p>
-            <p>
-              <input type="description" style="line-height: 40px;" name="description" id="description">
-            </p>
+            <textarea id="description" name="post-text" style="height: 100px; width: 50%;" class="wmd-input s-input bar0 js-post-body-field processed"
+              data-post-type-id="2" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
         </div>
         <div class="card-action">
           <a id="addItem" href="#">Post </a>
@@ -77,23 +76,6 @@
         })
         .catch(err => window.location = '/login.html')
     })
-
-    // axios.get('/api/posts', {
-    //   headers: {
-    //     'Authorization': `Bearer ${localStorage.getItem('token')}`
-    //   }
-    // })
-    //   .then(({ data: posts }) => {
-    //     posts.forEach(post => {
-    //       const postElem = document.createElement('li')
-    //       postElem.innerHTML = `
-    //       <p>Text: ${post.title}</p>
-    //       <p>Text: ${post.description}</p> 
-    //       `
-    //       document.getElementById('posts').append(postElem)
-    //     })
-    //   })
-    //   .catch(err => window.location = '/login.html')
   </script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
